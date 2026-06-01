@@ -1,0 +1,26 @@
+# Node / Expo
+node_modules/
+.expo/
+dist/
+web-build/
+.metro-health-check*
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.egg-info/
+.python-version
+.env*
+
+# Database
+*.db
+*.sqlite3
+
+# VS Code
+.vscode/
+
+# OS
+.DS_Store
+Thumbs.db
