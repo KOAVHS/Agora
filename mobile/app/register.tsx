@@ -1,3 +1,4 @@
+import { useAuthStore } from '../store/useAuthStore';
 import { useRouter } from 'expo-router';
 import { useState } from 'react';
 import {
@@ -26,31 +27,29 @@ export default function RegisterScreen() {
   const [loading, setLoading] = useState(false);
 
   const handleRegister = async () => {
-    if (!name || !email || !password || !passwordConfirm) {
-      Alert.alert('Error', 'Completa todos los campos');
-      return;
-    }
+  if (!name || !email || !password || !passwordConfirm) {
+    Alert.alert('Error', 'Completa todos los campos');
+    return;
+  }
 
-    if (password !== passwordConfirm) {
-      Alert.alert('Error', 'Las contraseñas no coinciden');
-      return;
-    }
+  if (password !== passwordConfirm) {
+    Alert.alert('Error', 'Las contraseñas no coinciden');
+    return;
+  }
 
-    setLoading(true);
-    try {
-      const data = await apiRegister(name, email, password);
-      Alert.alert('Registro completo', data.message, [
-        {
-          text: 'Ir a iniciar sesión',
-          onPress: () => router.push('/login'),
-        },
-      ]);
-    } catch (e: any) {
-      Alert.alert('Error', e.message || 'No se pudo crear la cuenta');
-    } finally {
-      setLoading(false);
-    }
-  };
+  setLoading(true);
+  try {
+    console.log('Intentando registrar:', { name, email });
+    const data = await apiRegister(name, email, password);
+    console.log('Respuesta:', data);
+    Alert.alert('Éxito', JSON.stringify(data));
+  } catch (e: any) {
+    console.log('Error completo:', e);
+    Alert.alert('Error', e.message || 'No se pudo crear la cuenta');
+  } finally {
+    setLoading(false);
+  }
+};
 
   return (
     <KeyboardAvoidingView

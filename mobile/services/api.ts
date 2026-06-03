@@ -31,6 +31,7 @@ const getBaseUrl = () => {
 };
 
 export const BASE_URL = getBaseUrl();
+console.log('API URL:', BASE_URL);
 
 // ── Auth ──────────────────────────────────────────────────────────────────────
 

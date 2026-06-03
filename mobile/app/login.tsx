@@ -37,21 +37,35 @@ export default function LoginScreen() {
 
     try {
       const data = await apiLogin(email, password);
+      console.log("Login: OK");
 
       setToken(data.access_token);
-
+      console.log("Token: OK");
       await fetchMe(data.access_token);
+      console.log("FetchMe: OK");
 
-      router.replace('/(tabs)');
-    } catch (e: any) {
-      Alert.alert(
-        'Error',
-        e?.message || 'No se pudo iniciar sesión'
-      );
-    } finally {
-      setLoading(false);
-    }
-  };
+      const user = useAuthStore.getState().user;
+    
+
+      console.log("Usuario:", user);
+
+     if (!user?.materia) {
+      router.replace('/setup/materia');
+     }
+     else {
+       router.replace('/dashboard');
+       }
+
+     console.log("Router: OK");
+  }catch (e: any) {
+    Alert.alert(
+      'Error',
+      e?.message || 'No se pudo iniciar sesión'
+    );
+  } finally {
+    setLoading(false);
+  }
+};
 
   return (
     <KeyboardAvoidingView

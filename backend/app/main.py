@@ -1,14 +1,15 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from dotenv import load_dotenv
 from app.database import Base, engine
 from app.routers import auth, users
 
-# Crear tablas
+load_dotenv()
+
 Base.metadata.create_all(bind=engine)
 
 app = FastAPI(title="Agora API", version="1.0.0")
 
-# CORS — permite conexión desde el mobile
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
@@ -17,7 +18,6 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# Routers
 app.include_router(auth.router)
 app.include_router(users.router)
 
